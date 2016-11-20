@@ -46,6 +46,7 @@
     "passport-twitter": "~1.0.2",
     "swig": "~1.4.1",
     "uuid": "^2.0.2",
+    "cron": "~1.1.1",
     "aliyun-sdk": "^1.9.6"
   },
   "devDependencies": {

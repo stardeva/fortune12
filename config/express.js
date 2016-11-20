@@ -33,6 +33,9 @@ module.exports = function(db) {
 		require(path.resolve(modelPath));
 	});
 
+	// Betting cron job
+	require('./../app/cron/betting.server.cron')(app);
+
 	// Setting application local variables
 	app.locals.title = config.app.title;
 	app.locals.description = config.app.description;
