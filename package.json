@@ -45,7 +45,8 @@
     "passport-local": "~1.0.0",
     "passport-twitter": "~1.0.2",
     "swig": "~1.4.1",
-    "uuid": "^2.0.2"
+    "uuid": "^2.0.2",
+    "aliyun-sdk": "^1.9.6"
   },
   "devDependencies": {
     "grunt-concurrent": "~1.0.0",
