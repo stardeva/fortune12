@@ -88,6 +88,13 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
+	},
+	/* For get device/pc info */
+	ip_address: {
+		type: String
+	},
+	device_token: {
+		type: String
 	}
 });
 

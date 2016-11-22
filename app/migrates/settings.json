@@ -1,0 +1,17 @@
+[
+  {
+    "new_user_coin": 100,
+    "min_betting": 100,
+    "max_betting": 500,
+    "user_invite_coin": 100,
+    "agent_invite_coin": 100,
+    "level_0_rates": 10,
+    "level_1_rates": 10,
+    "level_2_rates": 10,
+    "round_time": 5,
+    "betting_time": 3,
+    "betting_result_mode": "random",
+    "betting_result_value": "",
+    "round": 1
+  }
+]
