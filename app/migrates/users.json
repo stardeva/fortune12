@@ -5,7 +5,7 @@
     "displayName": "SuperAdmin",
     "email": "admin@admin.com",
     "username": "sysadmin",
-    "roles": ["admin"],
+    "roles": ["sysadmin"],
     "password": "password",
     "provider": "local"
   }

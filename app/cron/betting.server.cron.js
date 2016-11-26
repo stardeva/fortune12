@@ -7,12 +7,14 @@ var _ = require('lodash'),
 module.exports = function(app) {
   var betting_end = function(app) {
     console.log('Betting end');
+    app.config.settings.is_started = false;
     // PUSH.push_notifications('Betting end', 'Betting end', {});
   };
 
   var game_round = function(app) {
     console.log('Round start');
-    app.config.settings.start_time = new Date();
+    app.config.settings.start_time = moment();
+    app.config.settings.is_started = true;
     setTimeout(betting_end, app.config.settings.betting_time * 60000, app);
     // PUSH.push_notifications('Round start', 'Round start', {});
     setTimeout(game_round, app.config.settings.round_time * 60000, app);

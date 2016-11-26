@@ -14,21 +14,19 @@ var ResultSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	betting_date: {
+		type: String
+	},
     round: {
         type: Number
     },
-	betting_coins: {
+	result_number: {
 		type: Number
 	},
-	betting_rate: {
-		type: Number
-	},
-    coins: {
-        type: Number
-    },
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
+	betting_rates: {
+		type: [{
+			type: Number
+		}]
 	}
 });
 

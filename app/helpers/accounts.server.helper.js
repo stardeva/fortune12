@@ -38,7 +38,7 @@ module.exports = {
                     if (err) {
                         return false;
                     } else {
-                        user.account = account.id;
+                        user.account = account._id;
                         user.save(function (err) {
                             if (err) {
                                 cb(err, null);
@@ -50,7 +50,7 @@ module.exports = {
                 });
             },
             function (user, account, cb) {
-                if(module.exports.create_account_history(user.id, account.id, config.settings.new_user_coins, 'new user')) {
+                if(module.exports.create_account_history(user._id, account._id, config.settings.new_user_coins, 'new user')) {
                     cb(null, account);
                 } else {
                     cb(null, null);
@@ -76,7 +76,7 @@ module.exports = {
                         return false;
                     } else {
                         if(account.coins < Math.abs(coins)) {
-                            cb(null, null);
+                            return false;
                         } else {
                             account.coins += coins;
                             account.save(function (err) {
@@ -91,7 +91,7 @@ module.exports = {
                 });
             },
             function (account, cb) {
-                if(module.exports.create_account_history(user_id, account.id, coins, description)) {
+                if(module.exports.create_account_history(user_id, account._id, coins, description)) {
                     cb(null, account);
                 } else {
                     cb(null, null);

@@ -25,15 +25,11 @@ var SettingSchema = new Schema({
     agent_invite_coins: {
         type: Number
     },
-    level_0_rates: {
-        type: Number
-    },
-    level_1_rates: {
-        type: Number
-    },
-    level_2_rates: {
-        type: Number
-    },
+    betting_rates: {
+		type: [{
+			type: Number
+		}]
+	},
     round_time: {
         type: Number
     },
@@ -41,7 +37,7 @@ var SettingSchema = new Schema({
         type: Number
     },
     betting_result_mode: {
-        type: String
+        type: Number
     },
     betting_result_value: {
         type: Number

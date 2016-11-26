@@ -14,13 +14,16 @@ var BettingHistorySchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	betting_date: {
+		type: String
+	},
 	round: {
 		type: Number
     },
 	level: {
 		type: Number
 	},
-    animal: {
+    value: {
 		type: Number
 	},
     coins: {
