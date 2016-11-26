@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
  * Setting Schema
  */
 var SettingSchema = new Schema({
-	new_user_coin: {
+	new_user_coins: {
         type: Number
     },
     min_betting: {
@@ -19,10 +19,10 @@ var SettingSchema = new Schema({
     max_betting: {
         type: Number
     },
-    user_invite_coin: {
+    user_invite_coins: {
         type: Number
     },
-    agent_invite_coin: {
+    agent_invite_coins: {
         type: Number
     },
     level_0_rates: {
@@ -55,6 +55,9 @@ var SettingSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    updated: {
+        type: Date
     }
 });
 

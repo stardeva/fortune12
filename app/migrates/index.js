@@ -1,18 +1,16 @@
 'use strict';
-/* jshint ignore:start */
-/**
- * Module dependencies.
- */
-var mongoose = require('mongoose'),
-    errorHandler = require('./errors.server.controller'),
+
+var _ = require('lodash'),
+    moment = require('moment'),
+    mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Setting = mongoose.model('Setting'),
     _ = require('lodash'),
     async = require('async'),
-    users = require('./../migrates/users.json'),
-    settings = require('./../migrates/settings.json');
+    users = require('./users.json'),
+    settings = require('./settings.json');
 
-exports.index = function(req, res) {
+module.exports = function(app, cbk) {
   async.waterfall([
     function(cb) {
       async.each(users, function(user, callback) {
@@ -28,14 +26,14 @@ exports.index = function(req, res) {
               } else {
                 callback();
               }
-            })
+            });
           } else {
             callback();
           }
         });
       }, function(err) {
         cb(null, null);
-      })
+      });
     },
     function(data, cb) {
       async.each(settings, function(setting, callback) {
@@ -59,9 +57,21 @@ exports.index = function(req, res) {
       }, function(err) {
         cb(null, null);
       });
+    },
+    function(data, cb) {
+      Setting.findOne()
+      .exec(function(err, setting) {
+        if(err) {
+          cb(err, null);
+        } else {
+          setting.created = undefined;
+          setting.updated = undefined;
+          app.config.settings = setting;
+          cb(null, null);
+        }
+      });
     }
   ], function(err, data) {
-    res.json(200);
+    cbk();
   });
-}
-/* jshint ignore:end */
+};

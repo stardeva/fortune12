@@ -8,7 +8,8 @@ var _ = require('lodash'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
-	Setting = mongoose.model('Setting');
+    async = require('async'),
+	account_helper = require('../../helpers/accounts.server.helper');
 
 /**
  * Signup
@@ -35,6 +36,8 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+
+			account_helper.create_account(user.id);
 
 			req.login(user, function(err) {
 				if (err) {

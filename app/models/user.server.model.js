@@ -71,7 +71,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user', 'admin', 'agent', 'sysadmin']
 		}],
 		default: ['user']
 	},
@@ -95,6 +95,10 @@ var UserSchema = new Schema({
 	},
 	device_token: {
 		type: String
+	},
+	account: {
+		type: Schema.ObjectId,
+		ref: 'Account'
 	}
 });
 

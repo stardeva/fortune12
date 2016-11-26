@@ -28,13 +28,19 @@ module.exports = function(db) {
 	// Initialize express app
 	var app = express();
 
+	// pass config to global
+	app.config = config;
+
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));
 	});
 
-	// Betting cron job
-	require('./../app/cron/betting.server.cron')(app);
+	// Migrating/Getting initial app data
+	require('./../app/migrates')(app, function() {
+		// Betting cron job
+		require('./../app/cron/betting.server.cron')(app);
+	});
 
 	// Setting application local variables
 	app.locals.title = config.app.title;

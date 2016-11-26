@@ -1,10 +1,10 @@
 [
   {
-    "new_user_coin": 100,
+    "new_user_coins": 100,
     "min_betting": 100,
     "max_betting": 500,
-    "user_invite_coin": 100,
-    "agent_invite_coin": 100,
+    "user_invite_coins": 100,
+    "agent_invite_coins": 100,
     "level_0_rates": 10,
     "level_1_rates": 10,
     "level_2_rates": 10,

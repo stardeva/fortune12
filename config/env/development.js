@@ -61,10 +61,5 @@ module.exports = {
 		endpoint: process.env.END_POINT || 'http://cloudpush.aliyuncs.com',
 		apiVersion: process.env.API_VERSION || '2015-08-27',
 		appKey: process.env.APP_KEY || '23528075'
-	},
-	betting: {
-		round_time: 2,
-		betting_time: 1,
-		start_time: 0
 	}
 };

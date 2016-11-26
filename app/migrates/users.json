@@ -1,0 +1,12 @@
+[
+  {
+    "firstName": "admin",
+    "lastName": "admin",
+    "displayName": "SuperAdmin",
+    "email": "admin@admin.com",
+    "username": "sysadmin",
+    "roles": ["admin"],
+    "password": "password",
+    "provider": "local"
+  }
+]

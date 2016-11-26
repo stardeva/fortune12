@@ -7,7 +7,9 @@ var _ = require('lodash'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	Account = mongoose.model('Account'),
+	config = require('../../../config/config');
 
 /**
  * Update user details
@@ -53,4 +55,26 @@ exports.update = function(req, res) {
  */
 exports.me = function(req, res) {
 	res.json(req.user || null);
+};
+
+/**
+ * Get full info
+ */
+exports.get_full_info = function(req, res) {
+	var user = req.user;
+	Account.findById(user.account)
+	.exec(function(err, account) {
+		if (err) {
+			return res.status(404).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		}
+		if (!account) {
+			return res.status(404).send({
+				message: 'Account not found'
+			});
+		} else {
+			res.json({user: user, account: account, settings: config.settings});
+		}
+	})
 };
