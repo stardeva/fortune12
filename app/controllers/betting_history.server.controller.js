@@ -53,26 +53,4 @@ exports.create = function(req, res) {
 	} else {
 		res.json({status: 406, success: false, message: 'betting end'});
 	}
-
-	// _.each(req.body, function(value) {
-		
-	// });
-	// res.json({status: 200, success: 'ok'});
 };
-
-/**
- * BettingHistory middleware
- */
-
-
-/**
- * BettingHistory authorization middleware
- */
-// exports.hasAuthorization = function(req, res, next) {
-// 	if (req.betting_history.user.id !== req.user.id) {
-// 		return res.status(403).send({
-// 			message: 'User is not authorized'
-// 		});
-// 	}
-// 	next();
-// };
