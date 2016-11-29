@@ -32,6 +32,10 @@ var BettingHistorySchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	account: {
+		type: Schema.ObjectId,
+		ref: 'Account'
 	}
 });
 

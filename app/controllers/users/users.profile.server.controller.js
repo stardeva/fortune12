@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var _ = require('lodash'),
+	moment = require('moment'),
 	errorHandler = require('../errors.server.controller.js'),
 	mongoose = require('mongoose'),
 	passport = require('passport'),
@@ -74,7 +75,32 @@ exports.get_full_info = function(req, res) {
 				message: 'Account not found'
 			});
 		} else {
-			res.json({user: user, account: account, settings: config.settings});
+			var settings = config.settings;
+			var start_time = moment(settings.start_time);
+			var current_time = moment();
+			var played_time = current_time.diff(start_time, 'seconds');
+			var result = {
+				user: {
+					firstName: user.firstName,
+					lastName: user.lastName,
+					displayName: user.displayName,
+					username: user.username,
+					roles: user.roles,
+					email: user.email
+				},
+				account: {
+					coins: account.coins
+				},
+				settings: {
+					min_betting: settings.min_betting,
+					max_betting: settings.max_betting,
+					round_time: settings.round_time,
+					bidding_time: settings.bidding_time,
+					round: settings.round,
+					played_time: played_time
+				}
+			}
+			res.json(result);
 		}
 	})
 };

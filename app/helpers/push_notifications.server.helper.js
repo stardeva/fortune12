@@ -30,14 +30,14 @@ module.exports = {
     },
 
     push_ios: function(title, summary, content) {
-        var content = _.extend({"sound":"default", "badge": "24"}, content);
         this.push().pushNoticeToiOS({
             AppKey: config.aliyun.appKey,
             Env: 'DEV',
             Target: 'all',
             TargetValue: 'all',
             Summary: summary,
-            Ext: JSON.stringify(content)
+            Ext: JSON.stringify({"sound":"default", "badge": "1"}),
+            iOSExtParameters: JSON.stringify(content)
         }, function (err, res) {
             console.log(err, res);
         });

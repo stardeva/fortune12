@@ -53,7 +53,7 @@ module.exports = function(app) {
 	app.route('/auth/github/callback').get(users.oauthCallback('github'));
 
 	// Get user info
-	app.route('/after_login/:userId')
+	app.route('/users/account/:userId')
 		.get(users.requiresLogin, users.get_full_info);
 
 	// Finish by binding the user middleware

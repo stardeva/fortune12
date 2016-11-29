@@ -75,18 +75,14 @@ module.exports = {
                     if (err) {
                         return false;
                     } else {
-                        if(account.coins < Math.abs(coins)) {
-                            return false;
-                        } else {
-                            account.coins += coins;
-                            account.save(function (err) {
-                                if (err) {
-                                    cb(err, null);
-                                } else {
-                                    cb(null, account);
-                                }
-                            });
-                        }
+                        account.coins += coins;
+                        account.save(function (err) {
+                            if (err) {
+                                cb(err, null);
+                            } else {
+                                cb(null, account);
+                            }
+                        });
                     }
                 });
             },
@@ -106,18 +102,29 @@ module.exports = {
     * create account history
     */
     create_account_history: function(user_id, account_id, coins, description) {
+        console.log('history')
         var account_history = new AccountHistory({
             coins: coins,
             description: description,
             user: user_id,
             account: account_id
         });
-        account_history.save(function (err) {
-            if (err) {
-                return false;
-            } else {
-                return account_history;
+        async.waterfall([
+            function(cb) {
+                account_history.save(function (err) {
+                    if (err) {
+                        console.log('history 1');
+                        cb(err, null);
+                    } else {
+                        console.log('history 2');
+                        cb(null, account_history);
+                    }
+                });
             }
+        ], function(err, data) {
+            console.log('history 3');
+            return account_history;
         });
+        console.log('history 4');
     }
 };

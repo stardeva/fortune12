@@ -33,7 +33,7 @@ var SettingSchema = new Schema({
     round_time: {
         type: Number
     },
-    betting_time: {
+    bidding_time: {
         type: Number
     },
     betting_result_mode: {
@@ -42,11 +42,14 @@ var SettingSchema = new Schema({
     betting_result_value: {
         type: Number
     },
-    start_time: {
-        type: Date
+    betting_date: {
+        type: String,
     },
     round: {
         type: Number
+    },
+    start_time: {
+        type: Date
     },
     created: {
         type: Date,
