@@ -26,10 +26,8 @@ module.exports = function (app) {
             result.save(function (err) {
                 if (!err) {
                     bettings_helper.update_accounts_after_betting(data, function(res) {
-                        if(!res.result) {
-                            console.log('Result');
-                            PUSH.push_notifications('Betting result', 'Betting result', {"type": "3", "result": data.result});
-                        }
+                        console.log('Result');
+                        PUSH.push_notifications('Betting result', 'Betting result', {"type": "3", "result": data.result});
                     });
                 }
             });
