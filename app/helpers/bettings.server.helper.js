@@ -166,5 +166,32 @@ module.exports = {
                 next({result: false});
             }
         });
+    },
+    calc_winning_coins: function(result, data, rates) {
+        var level_numbers = {
+            1: {
+                0: [2, 4, 6],
+                1: [1, 3, 5],
+                2: [8, 10, 12],
+                3: [7, 9, 11],
+            },
+            2: {
+                0: [2, 4, 6, 8, 10, 12],
+                1: [1, 3, 5, 7, 9, 11],
+                2: [1, 2, 3, 4, 5, 6],
+                3: [2, 4, 6, 8, 10, 12]
+            }
+        };
+        var betting_coins = 0, winning_coins = 0;
+        _.each(data, function(betting) {
+            if((betting.level == 0 && betting.value == result) || 
+                ((betting.level == 1 || betting.level == 2) && 
+                (_.includes(level_numbers[betting.level][betting.value], result))
+            )) {
+                betting_coins += betting.coins;
+                winning_coins += Math.floor(rates[betting.level] * betting.coins);
+            }
+        });
+        return { betting_coins: betting_coins, winning_coins: winning_coins };
     }
 };
