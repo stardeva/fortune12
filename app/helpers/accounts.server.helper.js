@@ -102,7 +102,7 @@ module.exports = {
     * create account history
     */
     create_account_history: function(user_id, account_id, coins, description) {
-        console.log('history')
+        console.log('history');
         var account_history = new AccountHistory({
             coins: coins,
             description: description,

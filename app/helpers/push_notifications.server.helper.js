@@ -16,7 +16,7 @@ module.exports = {
     },
 
     push_android: function(title, summary, content) {
-        var content = _.extend({}, content);
+        content = _.extend({}, content);
         this.push().pushNoticeToAndroid({
             AppKey: config.aliyun.appKey,
             Target: 'all',
@@ -36,7 +36,7 @@ module.exports = {
             Target: 'all',
             TargetValue: 'all',
             Summary: summary,
-            Ext: JSON.stringify({"sound":"default", "badge": "1"}),
+            Ext: JSON.stringify({'sound': 'default', 'badge': '1'}),
             iOSExtParameters: JSON.stringify(content)
         }, function (err, res) {
             console.log(err, res);

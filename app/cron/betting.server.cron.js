@@ -12,7 +12,7 @@ var _ = require('lodash'),
 module.exports = function (app) {
     var betting_end = function (app) {
         console.log('Betting end');
-        PUSH.push_notifications('Betting end', 'Betting end', {"type": "2"});
+        // PUSH.push_notifications('Betting end', 'Betting end', {"type": "2"});
         config.settings.is_started = false;
         setTimeout(calc_betting_result, 10000, app);
     };
@@ -27,7 +27,7 @@ module.exports = function (app) {
                 if (!err) {
                     bettings_helper.update_accounts_after_betting(data, function(res) {
                         console.log('Result');
-                        PUSH.push_notifications('Betting result', 'Betting result', {"type": "3", "result": data.result});
+                        // PUSH.push_notifications('Betting result', 'Betting result', {"type": "3", "result": data.result});
                     });
                 }
             });
@@ -38,7 +38,7 @@ module.exports = function (app) {
         console.log('Round start');
         config.settings.start_time = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
         config.settings.is_started = true;
-        config.settings.round += 1;
+        // config.settings.round += 1;
         Setting.findOne()
         .exec(function(err, setting) {
             setting.round = config.settings.round;
@@ -47,7 +47,7 @@ module.exports = function (app) {
             setting.save(function(err) {
                 if(!err) {
                     setTimeout(betting_end, config.settings.bidding_time * 60000, app);
-                    PUSH.push_notifications('Round start', 'Round start', {"type": "1"});
+                    // PUSH.push_notifications('Round start', 'Round start', {"type": "1"});
                     setTimeout(game_round, config.settings.round_time * 60000, app);
                 }
             });

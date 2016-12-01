@@ -11,7 +11,7 @@ module.exports = function (app, cbk) {
     async.waterfall([
         function (cb) {
             async.each(users, function (user, callback) {
-                u = new User(user);
+                var u = new User(user);
                 u.save(function (err) {
                     if (err) {
                         callback(err);
@@ -25,7 +25,7 @@ module.exports = function (app, cbk) {
         },
         function (data, cb) {
             async.each(settings, function (setting, callback) {
-                s = new Setting(setting);
+                var s = new Setting(setting);
                 s.save(function (err) {
                     if (err) {
                         callback(err);

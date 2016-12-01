@@ -102,9 +102,9 @@ exports.get_full_info = function(req, res) {
 						played_time: played_time
 					},
 					result_history: result_history
-				}
+				};
 				res.json(result);
 			});
 		}
-	})
+	});
 };

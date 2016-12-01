@@ -19,7 +19,6 @@ var _ = require('lodash'),
  * Create a betting history
  */
 exports.create = function(req, res) {
-	var betting_date = moment().format('YYYY-MM-DD');
 	var user_id = req.user._id;
 	var bettings = [];
 	var round = config.settings.round;
@@ -68,7 +67,7 @@ exports.create = function(req, res) {
 											// Update account history
 											var account_history = new AccountHistory({
 												coins: total_betting_coins * (-1),
-												description: "Betting",
+												description: 'Betting',
 												user: user_id,
 												account: account._id
 											});
@@ -78,7 +77,7 @@ exports.create = function(req, res) {
 														message: errorHandler.getErrorMessage(err)
 													});
 												} else {
-													return res.json({status: 200, success: true, message: "Saved successfully!"});
+													return res.json({status: 200, success: true, message: 'Saved successfully!'});
 												}
 											});
 										}
@@ -86,18 +85,18 @@ exports.create = function(req, res) {
 								}
 							});
 						} else {
-							return res.json({status: 406, success: false, message: "You don't have enough coins!"});
+							return res.json({status: 406, success: false, message: 'You don\'t have enough coins!'});
 						}
 					}
 				});
 			} else {
-				return res.json({status: 406, success: false, message: "No betting!"});
+				return res.json({status: 406, success: false, message: 'No betting!'});
 			}
 		} else {
 			return res.json({status: 406, success: false, message: 'betting end'});
 		}
 	} else {
-		return res.json({status: 406, success: false, message: "No betting!"});
+		return res.json({status: 406, success: false, message: 'No betting!'});
 	}
 	
 };

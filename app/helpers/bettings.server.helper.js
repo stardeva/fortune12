@@ -39,11 +39,11 @@ module.exports = {
         };
         var betting_date = moment(config.settings.start_time).format('YYYY-MM-DD');
         var round = config.settings.round;
-        if(betting_mode == 1) {
+        if(betting_mode === 1) {
             // Random mode
             result_number = random.integer(1, 12);
             next({result: result_number});
-        } else if(betting_mode == 2) {
+        } else if(betting_mode === 2) {
             // Manual mode
             result_number = config.settings.betting_result_value;
             next({result: result_number});
@@ -57,7 +57,7 @@ module.exports = {
                     if(list.length > 0) {
                         var totals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                         _.each(list, function(betting) {
-                            if(betting.level == 0) {
+                            if(betting.level === 0) {
                                 totals[betting.value] += betting.coins * betting_rates[0];
                             } else {
                                 _.each(level_numbers[betting.level][betting.value], function(number) {
@@ -70,13 +70,13 @@ module.exports = {
                             if(totals[i] < first) {
                                 second = first;
                                 first = totals[i];
-                            } else if(totals[i] < second && totals[i] != first) {
+                            } else if(totals[i] < second && totals[i] !== first) {
                                 second = totals[i];
                             }
                         }
-                        if(second == Number.MAX_VALUE) second = first;
+                        if(second === Number.MAX_VALUE) second = first;
                         var shuffle_box = [];
-                        for(var i = 1; i < totals.length; i++) {
+                        for(i = 1; i < totals.length; i++) {
                             if(totals[i] <= second) {
                                 shuffle_box.push(i);
                             }
@@ -86,7 +86,7 @@ module.exports = {
                         }
                     }
                 }
-                if(result_number == 0) {
+                if(result_number === 0) {
                     result_number = random.integer(1, 12);
                 }
                 next({result: result_number});
@@ -121,8 +121,8 @@ module.exports = {
                 if(list.length > 0) {
                     var update_account_callbacks = [], accounts = {};
                     _.each(list, function(betting) {
-                        if((betting.level == 0 && betting.value == data.result) || 
-                            ((betting.level == 1 || betting.level == 2) && 
+                        if((betting.level === 0 && betting.value === data.result) || 
+                            ((betting.level === 1 || betting.level === 2) && 
                             (_.includes(level_numbers[betting.level][betting.value], data.result))
                         )) {
                             var account = betting.account;
@@ -130,7 +130,7 @@ module.exports = {
                             if(!accounts.hasOwnProperty(account._id)) {
                                 accounts[account._id] = {account: account, coins: coins};
                             } else {
-                                accounts[account._id]['coins'] += coins;
+                                accounts[account._id].coins += coins;
                             }
                         }
                     });
@@ -148,7 +148,7 @@ module.exports = {
                             update_account_history_callbacks.push(function(done) {
                                 var account_history = new AccountHistory({
                                     coins: data.coins,
-                                    description: "Betting Prize",
+                                    description: 'Betting Prize',
                                     user: data.account.user,
                                     account: data.account._id
                                 });
@@ -184,8 +184,8 @@ module.exports = {
         };
         var betting_coins = 0, winning_coins = 0;
         _.each(data, function(betting) {
-            if((betting.level == 0 && betting.value == result) || 
-                ((betting.level == 1 || betting.level == 2) && 
+            if((betting.level === 0 && betting.value === result) || 
+                ((betting.level === 1 || betting.level === 2) && 
                 (_.includes(level_numbers[betting.level][betting.value], result))
             )) {
                 betting_coins += betting.coins;
