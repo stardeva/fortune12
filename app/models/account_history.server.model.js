@@ -20,6 +20,12 @@ var AccountHistorySchema = new Schema({
     description: {
         type: String
     },
+	old_coins: {
+		type: Number
+	},
+	new_coins: {
+		type: Number
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

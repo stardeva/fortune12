@@ -57,6 +57,7 @@ exports.create = function(req, res) {
 									});
 								} else {
 									// Update account
+									var old_coins = account.coins;
 									account.coins -= total_betting_coins;
 									account.save(function(err) {
 										if(err) {
@@ -68,6 +69,8 @@ exports.create = function(req, res) {
 											var account_history = new AccountHistory({
 												coins: total_betting_coins * (-1),
 												description: 'Betting',
+												old_coins: old_coins,
+												new_coins: account.coins,
 												user: user_id,
 												account: account._id
 											});

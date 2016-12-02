@@ -105,6 +105,8 @@ module.exports = {
         console.log('history');
         var account_history = new AccountHistory({
             coins: coins,
+            old_coins: 0,
+            new_coins: coins,
             description: description,
             user: user_id,
             account: account_id

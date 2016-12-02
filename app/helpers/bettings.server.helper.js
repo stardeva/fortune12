@@ -138,8 +138,9 @@ module.exports = {
                         update_account_callbacks.push(function(cb) {
                             var account = data.account;
                             var coins = data.coins;
+                            var old_coins = account.coins;
                             account.coins += coins;
-                            account.save(cb(err, {account: account, coins: coins}));
+                            account.save(cb(err, {account: account, coins: coins, old_coins: old_coins}));
                         });
                     });
                     async.parallel(update_account_callbacks, function (err, results) {
@@ -148,6 +149,8 @@ module.exports = {
                             update_account_history_callbacks.push(function(done) {
                                 var account_history = new AccountHistory({
                                     coins: data.coins,
+                                    old_coins: data.old_coins,
+                                    new_coins: data.account.coins,
                                     description: 'Betting Prize',
                                     user: data.account.user,
                                     account: data.account._id
