@@ -126,7 +126,7 @@ module.exports = {
                             (_.includes(level_numbers[betting.level][betting.value], data.result))
                         )) {
                             var account = betting.account;
-                            var coins = Math.floor(betting_rates[betting.level] * betting.coins);
+                            var coins = Math.floor(betting_rates[betting.level] * betting.coins) + betting.coins;
                             if(!accounts.hasOwnProperty(account._id)) {
                                 accounts[account._id] = {account: account, coins: coins};
                             } else {
@@ -189,7 +189,7 @@ module.exports = {
                 (_.includes(level_numbers[betting.level][betting.value], result))
             )) {
                 betting_coins += betting.coins;
-                winning_coins += Math.floor(rates[betting.level] * betting.coins);
+                winning_coins += Math.floor(rates[betting.level] * betting.coins) + betting.coins;
             }
         });
         return { betting_coins: betting_coins, winning_coins: winning_coins };
