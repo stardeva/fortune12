@@ -37,8 +37,6 @@ exports.signup = function(req, res) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			account_helper.create_account(user.id);
-
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);

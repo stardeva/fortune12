@@ -12,7 +12,6 @@ var _ = require('lodash'),
 	Account = mongoose.model('Account'),
 	Result = mongoose.model('Result'),
 	AccountHistory = mongoose.model('AccountHistory'),
-	account_helper = require('./../helpers/accounts.server.helper'),
 	bettings_helper = require('./../helpers/bettings.server.helper');
 
 /**
@@ -69,6 +68,7 @@ exports.create = function(req, res) {
 											var account_history = new AccountHistory({
 												coins: total_betting_coins * (-1),
 												description: 'Betting',
+												type: 'bet',
 												old_coins: old_coins,
 												new_coins: account.coins,
 												user: user_id,

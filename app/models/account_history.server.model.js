@@ -17,6 +17,9 @@ var AccountHistorySchema = new Schema({
     coins: {
         type: Number
     },
+	type: {
+		type: String
+	},
     description: {
         type: String
     },
@@ -24,6 +27,9 @@ var AccountHistorySchema = new Schema({
 		type: Number
 	},
 	new_coins: {
+		type: Number
+	},
+	cost: {
 		type: Number
 	},
 	user: {

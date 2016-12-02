@@ -151,6 +151,7 @@ module.exports = {
                                     coins: data.coins,
                                     old_coins: data.old_coins,
                                     new_coins: data.account.coins,
+                                    type: 'win',
                                     description: 'Betting Prize',
                                     user: data.account.user,
                                     account: data.account._id
