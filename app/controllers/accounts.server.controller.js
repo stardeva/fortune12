@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Account = mongoose.model('Account'),
+	AccountHistory = mongoose.model('AccountHistory'),
     config = require('./../../config/config'),
 	account_helper = require('./../helpers/accounts.server.helper'),
 	_ = require('lodash');
@@ -34,7 +35,29 @@ exports.purchase = function(req, res) {
 			});
 		}
 	});
-}; 
+};
+
+/**
+ * Get User's purchase history
+ */
+exports.get_purchase_history = function(req, res) {
+	var account = req.account;
+	AccountHistory.find({
+		type: 'purchase',
+		account: account._id
+	})
+	.sort('-created')
+	.select('-_id coins cost created')
+	.exec(function(err, history) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.json(history);
+		}
+	});
+};
 
 /**
  * Account middleware
