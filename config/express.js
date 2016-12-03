@@ -32,6 +32,15 @@ module.exports = function(db) {
 		require(path.resolve(modelPath));
 	});
 
+	// Migrating/Getting initial app data
+	// require('./../app/migrates')(app, function() {
+	// });
+
+	// Betting cron job
+	require('./load')(function() {
+		require('./../app/cron/betting.server.cron')(app);
+	});
+
 	// Setting application local variables
 	app.locals.title = config.app.title;
 	app.locals.description = config.app.description;

@@ -1,9 +1,24 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/angle-dev',
+	db: {
+		uri: 'mongodb://localhost/fortune12-dev',
+		options: {
+			user: '',
+			pass: ''
+		}
+	},
+	log: {
+		// Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'
+		format: 'dev',
+		// Stream defaults to process.stdout
+		// Uncomment to enable logging to a log on the file system
+		options: {
+			//stream: 'access.log'
+		}
+	},
 	app: {
-		title: 'Angle - Development Environment'
+		title: 'Fortune12'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
@@ -39,5 +54,12 @@ module.exports = {
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}
+	},
+	aliyun: {
+		accessKeyId: process.env.ACCESS_KEY_ID || 'LTAIlxhpgWtoGSmG',
+		secretAccessKey: process.env.SECRET_ACCESS_KEY || '3UGTXzvE7eFNFUCMhmUQ6IDue0gkcq',
+		endpoint: process.env.END_POINT || 'http://cloudpush.aliyuncs.com',
+		apiVersion: process.env.API_VERSION || '2015-08-27',
+		appKey: process.env.APP_KEY || '23528075'
 	}
 };

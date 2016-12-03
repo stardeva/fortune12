@@ -71,7 +71,7 @@ var UserSchema = new Schema({
 	roles: {
 		type: [{
 			type: String,
-			enum: ['user', 'admin']
+			enum: ['user', 'agent', 'admin', 'sysadmin']
 		}],
 		default: ['user']
 	},
@@ -88,6 +88,17 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
+	},
+	/* For get device/pc info */
+	ip_address: {
+		type: String
+	},
+	device_token: {
+		type: String
+	},
+	account: {
+		type: Schema.ObjectId,
+		ref: 'Account'
 	}
 });
 

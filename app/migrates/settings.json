@@ -1,0 +1,15 @@
+[
+  {
+    "new_user_coins": 100,
+    "min_betting": 100,
+    "max_betting": 500,
+    "user_invite_coins": 100,
+    "agent_invite_coins": 100,
+    "betting_rates": [0.1, 0.1, 0.1],
+    "round_time": 5,
+    "bidding_time": 3,
+    "betting_result_mode": 0,
+    "betting_result_value": "",
+    "round": 1
+  }
+]
