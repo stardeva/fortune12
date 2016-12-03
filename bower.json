@@ -1,10 +1,10 @@
 {
-  "name": "Angle",
-  "version": "0.0.0",
+  "name": "Fortune12",
+  "version": "0.0.1",
   "authors": [
-    "@themicon_co"
+    "@Fortuna"
   ],
-  "description": "Bootstrap Admin Theme + Meanjs",
+  "description": "",
   "main": "index.html",
   "keywords": [
     "bootstrap",
@@ -13,8 +13,6 @@
     "theme",
     "dashboard"
   ],
-  "license": "http://support.wrapbootstrap.com/knowledge_base/topics/usage-licenses",
-  "homepage": "http://themicon.co",
   "private": true,
   "ignore": [
     "**/.*"
@@ -38,11 +36,12 @@
     "oclazyload": "1.0.9",
     "ngstorage": "0.3.10",
     "jquery": "2.2.1",
-    "modernizr": "https://modernizr.com/download?backgroundsize-bgpositionshorthand-bgpositionxy-bgrepeatspace_bgrepeatround-bgsizecover-borderradius-cssanimations-csscalc-csstransforms-csstransforms3d-csstransitions-flexboxtweener-fontface-inlinesvg-localstorage-multiplebgs-preserve3d-sessionstorage-smil-svgclippaths-svgfilters-svgforeignobject-todataurljpeg_todataurlpng_todataurlwebp-setclasses&q=background.zip",
+    "modernizr": "3.3.1",
     "angular-sanitize": "1.5.0",
     "angular-resource": "1.5.0",
     "simple-line-icons": "2.2.3",
     "angular-touch": "1.5.0",
+    "moment": "^2.12.0",
     "jquery.browser": "master"
   },
   "resolutions": {
