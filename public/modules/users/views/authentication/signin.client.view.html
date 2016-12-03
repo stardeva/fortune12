@@ -29,12 +29,12 @@
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
 				</div>
-				<div class="text-center form-group">
+				<div class="text-center form-group mt">
 					<button type="submit" class="btn btn-primary">Sign in</button>&nbsp; or&nbsp;
-					<a href="/#!/signup">Sign up</a>
+					<a href="/#!/page/signup">Sign up</a>
 				</div>
-				<div class="forgot-password">
-					<a href="/#!/password/forgot">Forgot your password?</a>
+				<div class="forgot-password text-center mt">
+					<a href="/#!/page/password/forgot" class="text-muted">Forgot your password?</a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>

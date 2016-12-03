@@ -13,8 +13,6 @@ var _ = require('lodash'),
 	async = require('async'),
 	crypto = require('crypto');
 
-var smtpTransport = nodemailer.createTransport(config.mailer.options);
-
 /**
  * Forgot for reset password (forgot POST)
  */
@@ -67,6 +65,7 @@ exports.forgot = function(req, res, next) {
 		},
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
+			var smtpTransport = nodemailer.createTransport(config.mailer.options);
 			var mailOptions = {
 				to: user.email,
 				from: config.mailer.from,
@@ -77,10 +76,6 @@ exports.forgot = function(req, res, next) {
 				if (!err) {
 					res.send({
 						message: 'An email has been sent to ' + user.email + ' with further instructions.'
-					});
-				} else {
-					return res.status(400).send({
-						message: 'Failure sending email'
 					});
 				}
 
@@ -103,7 +98,7 @@ exports.validateResetToken = function(req, res) {
 		}
 	}, function(err, user) {
 		if (!user) {
-			return res.redirect('/#!/password/reset/invalid');
+			return res.redirect('/#!/page/password/reset/invalid');
 		}
 
 		res.redirect('/#!/password/reset/' + req.params.token);
@@ -142,7 +137,7 @@ exports.reset = function(req, res, next) {
 									if (err) {
 										res.status(400).send(err);
 									} else {
-										// Return authenticated user
+										// Return authenticated user 
 										res.json(user);
 
 										done(err, user);
@@ -172,6 +167,7 @@ exports.reset = function(req, res, next) {
 		},
 		// If valid email, send reset email using service
 		function(emailHTML, user, done) {
+			var smtpTransport = nodemailer.createTransport(config.mailer.options);
 			var mailOptions = {
 				to: user.email,
 				from: config.mailer.from,
