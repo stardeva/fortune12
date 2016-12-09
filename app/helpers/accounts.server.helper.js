@@ -22,5 +22,20 @@ module.exports = {
             account: account._id
         });
         account_history.save(next);
+    },
+    get_account_purchase_history: function(account_id, next) {
+        AccountHistory.find({
+            type: 'purchase',
+            account: account_id
+        })
+        .sort('-created')
+        .select('-_id coins cost created')
+        .exec(function(err, history) {
+            if (err) {
+                next(err, null);
+            } else {
+                next(null, history);
+            }
+        });
     }
 };

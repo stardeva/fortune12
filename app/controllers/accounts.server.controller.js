@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 	Account = mongoose.model('Account'),
 	AccountHistory = mongoose.model('AccountHistory'),
     config = require('./../../config/config'),
-	account_helper = require('./../helpers/accounts.server.helper'),
+	accounts_helper = require('./../helpers/accounts.server.helper'),
 	_ = require('lodash');
 
 /**
@@ -24,7 +24,7 @@ exports.purchase = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			account_helper.create_account_history(req.user, account, req.body.coins, 'purchase', 'Purchase coins', req.body.cost, function(err, data) {
+			accounts_helper.create_account_history(req.user, account, req.body.coins, 'purchase', 'Purchase coins', req.body.cost, function(err, data) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
@@ -42,19 +42,13 @@ exports.purchase = function(req, res) {
  */
 exports.get_purchase_history = function(req, res) {
 	var account = req.account;
-	AccountHistory.find({
-		type: 'purchase',
-		account: account._id
-	})
-	.sort('-created')
-	.select('-_id coins cost created')
-	.exec(function(err, history) {
+	accounts_helper.get_account_purchase_history(account._id, function(err, account_history) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.json(history);
+			res.json(account_history);
 		}
 	});
 };

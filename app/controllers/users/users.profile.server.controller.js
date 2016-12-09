@@ -11,6 +11,7 @@ var _ = require('lodash'),
 	User = mongoose.model('User'),
 	Account = mongoose.model('Account'),
 	results_helper = require('../../helpers/results.server.helper'),
+	accounts_helper = require('../../helpers/accounts.server.helper'),
 	config = require('../../../config/config');
 
 /**
@@ -77,33 +78,42 @@ exports.get_full_info = function(req, res) {
 			});
 		} else {
 			results_helper.get_latest_results_by_user_id(user._id, function(result_history) {
-				var settings = config.settings;
-				var start_time = moment(settings.start_time);
-				var current_time = moment();
-				var played_time = current_time.diff(start_time, 'seconds');
-				var result = {
-					user: {
-						firstName: user.firstName,
-						lastName: user.lastName,
-						displayName: user.displayName,
-						username: user.username,
-						roles: user.roles,
-						email: user.email
-					},
-					account: {
-						coins: account.coins
-					},
-					settings: {
-						min_betting: settings.min_betting,
-						max_betting: settings.max_betting,
-						round_time: settings.round_time,
-						bidding_time: settings.bidding_time,
-						round: settings.round,
-						played_time: played_time
-					},
-					result_history: result_history
-				};
-				res.json(result);
+				accounts_helper.get_account_purchase_history(account._id, function(err, account_history) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						var settings = config.settings;
+						var start_time = moment(settings.start_time);
+						var current_time = moment();
+						var played_time = current_time.diff(start_time, 'seconds');
+						var result = {
+							user: {
+								firstName: user.firstName,
+								lastName: user.lastName,
+								displayName: user.displayName,
+								username: user.username,
+								roles: user.roles,
+								email: user.email
+							},
+							account: {
+								coins: account.coins
+							},
+							settings: {
+								min_betting: settings.min_betting,
+								max_betting: settings.max_betting,
+								round_time: settings.round_time,
+								bidding_time: settings.bidding_time,
+								round: settings.round,
+								played_time: played_time
+							},
+							result_history: result_history,
+							account_history: account_history
+						};
+						res.json(result);
+					}
+				});
 			});
 		}
 	});
