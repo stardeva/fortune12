@@ -5,8 +5,8 @@ var init = require('../../config/init')(),
 	mongoose = require('mongoose'),
 	chalk = require('chalk'),
     async = require('async'),
-    users = require('./users.json'),
-    settings = require('./settings.json'),
+    users_data = require('./users.json'),
+    settings_data = require('./settings.json'),
     _ = require('lodash'),
     path = require('path'),
     chalk = require('chalk');
@@ -20,7 +20,7 @@ var db = mongoose.connect(config.db.uri, config.db.options, function(err) {
 
 mongoose.connection.on('error', function(err) {
 	console.error(chalk.red('MongoDB connection error: ' + err));
-	process.exit(-1);
+	    process.exit(-1);
 	}
 );
 
@@ -34,7 +34,7 @@ var User = mongoose.model('User'),
     Setting = mongoose.model('Setting'),
     AccountHistory = mongoose.model('AccountHistory');
 
-var create_settings = function(next) {
+var create_settings = function(settings, next) {
     var setting = new Setting(settings[0]);
     setting.save(function(err) {
         if(err) next(err, null);
@@ -42,7 +42,7 @@ var create_settings = function(next) {
     });
 };
 
-var create_users = function(next) {
+var create_users = function(users, next) {
     var create_users_callbacks = [];
     _.each(users, function(user) {
         create_users_callbacks.push(function(done) {
@@ -80,8 +80,7 @@ var create_accounts = function(setting, users, next) {
                         account_history.save(function(err1) {
                             if(err1) done(err1, null);
                             else {
-                                user.account = account;
-                                user.save(function(err2) {
+                                user.update({account: account._id}).exec(function(err2) {
                                     if(err2) done(err2, null);
                                     else done(null, account);
                                 });
@@ -98,8 +97,8 @@ var create_accounts = function(setting, users, next) {
 };
 
 var init_migrates = function() {
-    create_settings(function(err, setting) {
-        create_users(function(err1, users) {
+    create_settings(settings_data, function(err, setting) {
+        create_users(users_data, function(err1, users) {
             create_accounts(setting, users, function(err2, accounts) {
                 console.log(chalk.green('Success!'));
             });
