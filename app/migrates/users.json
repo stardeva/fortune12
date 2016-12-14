@@ -8,5 +8,15 @@
     "roles": ["sysadmin"],
     "password": "password",
     "provider": "local"
+  },
+  {
+    "firstName": "test",
+    "lastName": "user",
+    "displayName": "Test User",
+    "email": "user@user.com",
+    "username": "user",
+    "roles": ["user"],
+    "password": "password",
+    "provider": "local"
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "new_user_coins": 100,
+    "new_user_coins": 10000,
     "min_betting": 100,
     "max_betting": 500,
     "user_invite_coins": 100,
