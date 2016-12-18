@@ -44,7 +44,7 @@ module.exports = {
     },
 
     push_notifications: function(title, summary, content) {
-        // this.push_android(title, summary, content);
+        this.push_android(title, summary, content);
         this.push_ios(title, summary, content);
     }
 };
