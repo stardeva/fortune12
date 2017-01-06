@@ -172,9 +172,15 @@ module.exports = function(db) {
 
 	var server = http.createServer(app);
 	var io = socketio.listen(server);
-	app.set('socketio', io);
-	app.set('server', server);
+	io.on('connection', function(socket){
+		app.set('socketio', io);
+		app.set('server', server);
+		app.set('socket', socket);
+
+		return app;
+	});
+	
 
 	// Return Express server instance
-	return app;
+	// return app;
 };
