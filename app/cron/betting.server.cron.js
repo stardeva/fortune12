@@ -10,7 +10,7 @@ var _ = require('lodash'),
     PUSH = require('../helpers/push_notifications.server.helper');
 
 module.exports = function (app) {
-    var socket = app.get('socket');
+    var socketio = app.get('socketio');
     
     var betting_end = function (app) {
         // PUSH.push_notifications('Betting end', 'Betting end', {"type": "2"});
@@ -47,7 +47,7 @@ module.exports = function (app) {
                 if(!err) {
                     setTimeout(betting_end, config.settings.bidding_time * 60000, app);
                     // PUSH.push_notifications('Round start', 'Round start', {"type": "1"});
-                    socket.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
+                    socketio.sockets.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
                     setTimeout(game_round, config.settings.round_time * 60000, app);
                 }
             });
