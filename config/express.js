@@ -22,6 +22,7 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
+	socketio = require('socket.io'),
 	path = require('path');
 
 module.exports = function(db) {
@@ -168,6 +169,11 @@ module.exports = function(db) {
 		// Return HTTPS server instance
 		return httpsServer;
 	}
+
+	var server = http.createServer(app);
+	var io = socketio.listen(server);
+	app.set('socketio', io);
+	app.set('server', server);
 
 	// Return Express server instance
 	return app;

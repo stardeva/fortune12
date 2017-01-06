@@ -48,7 +48,8 @@
     "passport-twitter": "~1.0.2",
     "random-js": "^1.0.8",
     "swig": "~1.4.1",
-    "uuid": "^2.0.2"
+    "uuid": "^2.0.2",
+    "socket.io": "^1.0.6"
   },
   "devDependencies": {
     "grunt-concurrent": "~1.0.0",
