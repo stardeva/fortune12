@@ -52,6 +52,9 @@ module.exports = function(app) {
 	app.route('/auth/github').get(passport.authenticate('github'));
 	app.route('/auth/github/callback').get(users.oauthCallback('github'));
 
+	// Setting the weixin oauth routes
+	app.route('/auth/weixin/callback').post(users.oauthCallback('weixin'));
+
 	// Get user info
 	app.route('/users/account/:userId')
 		.get(users.requiresLogin, users.get_full_info);
