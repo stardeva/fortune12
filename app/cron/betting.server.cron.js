@@ -47,9 +47,9 @@ module.exports = function (app) {
                 if(!err) {
                     setTimeout(betting_end, config.settings.bidding_time * 60000, app);
                     PUSH.push_notifications('Round start', 'Round start', {"type": "1"});
-                    socketio.on('connection', function(socket){
-                        socket.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
-                    });
+                    // socketio.on('connection', function(socket){
+                    //     socket.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
+                    // });
                     setTimeout(game_round, config.settings.round_time * 60000, app);
                 }
             });
