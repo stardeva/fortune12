@@ -11,9 +11,10 @@ var _ = require('lodash'),
 
 module.exports = function (app) {
     var socketio = app.get('socketio');
-    
+
     var betting_end = function (app) {
         PUSH.push_notifications('Betting end', 'Betting end', {"type": "2"});
+        socketio.sockets.emit('betting.end', {'name': 'Betting end', 'description': 'Betting end', 'values': {'type': '2'}});
         config.settings.is_started = false;
         setTimeout(calc_betting_result, 10000, app);
     };
@@ -28,6 +29,7 @@ module.exports = function (app) {
                 if (!err) {
                     bettings_helper.update_accounts_after_betting(data, function(res) {
                         PUSH.push_notifications('Betting result', 'Betting result', {"type": "3", "result": data.result});
+                        socketio.sockets.emit('betting.result', {'name': 'Betting result', 'description': 'Betting result', 'values': {'type': '3', 'result': data.result}});
                     });
                 }
             });
@@ -47,9 +49,7 @@ module.exports = function (app) {
                 if(!err) {
                     setTimeout(betting_end, config.settings.bidding_time * 60000, app);
                     PUSH.push_notifications('Round start', 'Round start', {"type": "1"});
-                    socketio.on('connection', function(socket){
-                        socket.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
-                    });
+                    socketio.sockets.emit('round.start', {'name': 'Round start', 'description': 'Round start', 'values': {'type': '1'}});
                     setTimeout(game_round, config.settings.round_time * 60000, app);
                 }
             });

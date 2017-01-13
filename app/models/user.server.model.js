@@ -96,6 +96,9 @@ var UserSchema = new Schema({
 	device_token: {
 		type: String
 	},
+	avatar: {
+		type: String
+	},
 	account: {
 		type: Schema.ObjectId,
 		ref: 'Account'

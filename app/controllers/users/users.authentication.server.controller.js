@@ -84,18 +84,38 @@ exports.signout = function(req, res) {
  */
 exports.oauthCallback = function(strategy) {
 	return function(req, res, next) {
-		passport.authenticate(strategy, function(err, user, redirectURL) {
-			if (err || !user) {
-				return res.redirect('/#!/signin');
-			}
-			req.login(user, function(err) {
-				if (err) {
+		if(strategy == 'weixin') {
+			console.log(req.body);
+			passport.authenticate(strategy, function(err, user) {
+				if (err && !user) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				}
+				req.login(user, function(err) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}
+
+					return res.json(user);
+				});
+			})(req, res, next);
+		} else {
+			passport.authenticate(strategy, function(err, user, redirectURL) {
+				if (err || !user) {
 					return res.redirect('/#!/signin');
 				}
+				req.login(user, function(err) {
+					if (err) {
+						return res.redirect('/#!/signin');
+					}
 
-				return res.redirect(redirectURL || '/');
-			});
-		})(req, res, next);
+					return res.redirect(redirectURL || '/');
+				});
+			})(req, res, next);
+		}
 	};
 };
 
@@ -135,6 +155,7 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 							lastName: providerUserProfile.lastName,
 							username: availableUsername,
 							displayName: providerUserProfile.displayName,
+							avatar: providerUserProfile.avatar,
 							email: providerUserProfile.email,
 							provider: providerUserProfile.provider,
 							providerData: providerUserProfile.providerData
@@ -142,7 +163,16 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 
 						// And save the user
 						user.save(function(err) {
-							return done(err, user);
+							if(user.provider == 'weixin') {
+								account_helper.create_account(user, function(err, account) {
+									user.update({account: account._id}).exec(function(err2) {
+										if(err2) done(err2, null);
+										else done(null, user);
+									});
+								});
+							} else {
+								return done(err, user);
+							}
 						});
 					});
 				} else {
@@ -168,7 +198,8 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 				return done(err, user, '/#!/settings/accounts');
 			});
 		} else {
-			return done(new Error('User is already connected using this provider'), user);
+			// return done(new Error('User is already connected using this provider'), user);
+			return done(null, user);
 		}
 	}
 };

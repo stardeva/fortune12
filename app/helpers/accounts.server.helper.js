@@ -37,5 +37,21 @@ module.exports = {
                 next(null, history);
             }
         });
+    },
+    create_account: function(user, next) {
+        var new_user_coins = config.settings.new_user_coins;
+        var account = new Account({coins: new_user_coins, user: user});
+        account.save(function(err) {
+            if(err) next(err, null);
+            else {
+                module.exports.create_account_history(user, account, new_user_coins, 'new', 'New user', null, function(err, data) {
+                    if (err) {
+                        next(err, null);
+                    } else {
+                        next(null, account);
+                    }
+                });
+            }
+        });
     }
 };
