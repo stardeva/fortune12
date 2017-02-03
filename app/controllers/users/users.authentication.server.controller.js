@@ -158,7 +158,8 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 							avatar: providerUserProfile.avatar,
 							email: providerUserProfile.email,
 							provider: providerUserProfile.provider,
-							providerData: providerUserProfile.providerData
+							providerData: providerUserProfile.providerData,
+							password: 'password'
 						});
 
 						// And save the user
@@ -167,7 +168,11 @@ exports.saveOAuthUserProfile = function(req, providerUserProfile, done) {
 								account_helper.create_account(user, function(err, account) {
 									user.update({account: account._id}).exec(function(err2) {
 										if(err2) done(err2, null);
-										else done(null, user);
+										else{
+											user.password = undefined;
+											user.salt = undefined;
+											done(null, user);
+										}
 									});
 								});
 							} else {
